@@ -1,0 +1,17 @@
+services:
+  service-a:
+    build: ./service-a
+    ports:
+      - "5002:5000"
+    depends_on:
+      - service-b
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/trigger"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+
+  service-b:
+    build: ./service-b
+    ports:
+      - "5001:5001"
